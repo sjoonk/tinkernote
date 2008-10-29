@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title><%= 'tinkernote' + (@title ? " - #@title" : '- Wiki-based ideanote for tinkers') %></title>
+	<link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print"> 
+	<!--[if IE]>
+	  <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
+	<![endif]-->
+  <%# bundle do %>
+	  <%= stylesheet_link_tag 'style', 'pagination' %>
+	  <%#= stylesheet_link_tag 'superfish' %>
+		<%= javascript_include_tag 'jquery', 'jquery-ui', 'jrails' %>
+		<%= javascript_include_tag 'jquery.form', 'jquery.livequery', 'jquery.corner' %>
+		<%= javascript_include_tag 'superfish' %>
+		<%= javascript_include_tag 'fbborderlayout' %>
+		<%= javascript_include_tag '/nicEdit/nicEdit.js' %>
+	<%# end %>
+	<%= yield :head -%>
+	<%= javascript_tag "var AUTH_TOKEN='#{form_authenticity_token}';" if protect_against_forgery? %>
+	<%= javascript_include_tag 'application' %>
+	<%= yield :jquery_onload -%>
+</head>
+
+<body id="application">
+
+	<div class="fbbl_north">
+		<%= render :partial => 'layouts/top_menu' %>
+		<h2 id="logo"><%= link_to image_tag('logo.jpg', :alt => 'ezyWiki'), root_path %></h2>
+	</div>
+
+	<div class="fbbl_center">
+		<% if flash[:notice] %>
+			<div class="notice"><%= flash[:notice] %></div>
+		<% end %>
+		
+		<%= yield %>
+
+	</div>
+
+	<div class="fbbl_west">
+		<%= yield :west_area %>
+	</div>
+
+	<div class="fbbl_east">
+		<%= yield :east_area %>
+	</div>
+
+	<div id="footer" class="fbbl_south center">
+		Copyright (c) <a href="http://usefulparadigm.com">UsefulParadigm</a>, All right reserved 2007-2008.
+	</div>
+	
+</body>
+</html>
+

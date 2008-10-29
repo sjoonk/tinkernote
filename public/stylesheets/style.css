@@ -1,0 +1,146 @@
+/* Overloading * Extending Blueprint */
+body { 
+	font-size: 100%;	background-color: #fff; color: #000; 
+}
+input, textarea { font-size: 100%; }
+select { margin:0; padding 0; }
+.hidden { display: none; }
+.right { text-align: right; }
+.center { text-align: center; }
+.justify { text-align: justify; }
+.float.left { float: left; }
+.float.right { float: right; }
+p img { float: none; }
+label em { color: red; }
+li.empty, div.empty  { background: #eee; margin:0; padding: 10px; font-size: 0.9em; color: #666; }
+table tr { background: url(/images/border-bottom.gif) repeat-x bottom; }
+table tr:hover { background-color: #eee; }
+.atby { font-size: 0.85em; color: #bbb;}
+
+/* for PBBorderLayout */
+
+/* in this sample we've collapsing turned on, thus
+   you've to define the "collapsers" styles or you
+   won't be able to see the collapsing triggers on
+   the page */
+.fbbl_north_collapser,
+.fbbl_east_collapser,
+.fbbl_south_collapser,
+.fbbl_west_collapser {
+	background: #ccc;
+}
+
+.fbbl_north,
+.fbbl_south,
+.fbbl_east,
+.fbbl_west,
+.fbbl_center {
+ padding: 10px;
+ /*background: #fff;*/
+ border: 1px solid #ccc;
+}
+
+.fbbl_north {
+	height: 55px;
+	padding: 0; margin: 0;
+	background: url(/images/bg_top.jpg) repeat-x;
+}
+
+#logo {
+	top: 0;
+	left: 0;
+}
+
+#sessions .container {
+	background: #999;
+}
+#sessions #welcome {
+	background: gray url(/images/bg_top.jpg) repeat-x;
+	margin-bottom: 20px;
+}
+#sessions em#description {
+	color: #ddd;
+	display: block;
+	padding: 0 0 3px 20px;
+}
+#sessions #login_area {
+	color: #ddd;
+}
+
+
+#top_menu { margin: 0; padding: 1em 1em 0 1em; list-style: none; float: right; }
+#top_menu li {
+	display: inline;	
+	padding-left: 3px;
+	font-size: 0.9em;
+	color: #bbb;
+}
+#top_menu li a {
+	color: #ddd;
+}
+
+#footer {
+	padding: 0.5em 0;
+	border-top: 1px solid silver;
+	font-size: 0.9em;
+	color: #666;
+	background-color: #eee;
+}
+
+#title_area {
+	margin: 0.5em 0 2em 0;
+	border-bottom: 2px solid navy;
+}
+
+.page_title {
+	margin: 0.5em 0 0.3em;
+}
+
+#title_area .page_title {
+	float: left;
+}
+
+#new_page input, #title_area input {
+	margin-top: 0.5em;
+}
+
+#real_body {
+	background: url(/images/bg_line.gif);
+	min-height: 300px;
+}
+
+#indicator {
+	font-size: 0.85em;
+	font-style: italic;
+	color: red;
+}
+
+.page_list {
+	font-size: 0.9em;
+	list-style-type: square;
+}
+
+#version { 
+	font-size: 0.9em;
+}
+
+#summary_area {
+	margin: 5px 0;
+	padding: 3px 0;
+	border-top: 1px dashed silver;
+}
+
+#related_pages ul {
+	margin: 0;
+	padding: 10px;
+	background: #eee;
+	list-style-type: square;
+}
+
+#related_pages li {
+	font-size: 0.9em;
+	list-style-position: inside;
+	list-style-type: square;
+	/*padding-left: 20px;
+	background: url(/images/page.png) no-repeat left;*/
+}

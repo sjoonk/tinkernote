@@ -1,0 +1,15 @@
+<%= page_title "새 페이지", :h3 %>
+
+<% form_for @page do |form| %>
+	<%= form.error_messages %>
+	<p>
+	  <%= form.label :title, '제목' %><br />
+	  <%= form.text_field :title, :size => 65 %>
+	</p>
+	<%= render :partial => 'form', :object => form %>
+	<div class="right">
+		<%= link_to '취소', :back %>
+		<%= form.submit '저장' %>
+	</div>
+<% end %>
+
