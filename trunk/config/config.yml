@@ -1,0 +1,16 @@
+development: &non_production_settings
+  site_url: http://localhost:3000
+  site_name: Yoursite
+  admin_email: admin@yoursite.com
+  start_mode: list #page
+  home_title: 전체 페이지
+  
+test:
+  <<: *non_production_settings
+  
+production:
+  site_url: http://wiki.usefulparadigm.com
+  site_name: ezyWiki
+  admin_email: admin@yoursite.com
+  start_mode: list #page
+  home_title: 대문

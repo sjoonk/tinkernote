@@ -1,0 +1,6 @@
+<h4>최근 페이지</h4>	
+<ul class="page_list">
+<% recent_pages.each do |page| %>
+	<li><%= link_to page.title, page %></li>
+<% end %>
+</ul>

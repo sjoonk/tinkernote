@@ -1,0 +1,97 @@
+<% content_for :head do %>
+<script type="text/javascript" charset="utf-8">
+bkLib.onDomLoaded(function() {
+	var myNicEditor = new nicEditor({
+				fullPanel: true, 
+				iconsPath: '/nicEdit/nicEditorIcons.gif', 
+				maxHeight: 200
+				/*onSave : function(content, id, instance) {
+					$('#page_body').text(content);
+					$('.edit_page').submit();	
+				}*/
+	});
+  myNicEditor.setPanel('nic_panel');
+  myNicEditor.addInstance('real_body');
+});
+function hijack_link() {
+	$('.nicEdit-frame').contents().find('a').click(function(){
+		window.location.href = $(this).attr('href');
+	})	
+}
+setTimeout("hijack_link()", 1000);
+function ajaxSave() {
+	$('#indicator').show();
+	$('#page_body').val(nicEditors.findEditor('real_body').getContent());
+	$('.edit_page').ajaxSubmit({
+		success: function(){ $('#indicator').hide(); $('input[type=button]').blur() }
+	});
+	return false;
+}
+</script>
+<% end %>
+<% jquery_onload do %>
+window.onbeforeunload = function(){
+	// Resolve html entities mismatch between nicEdit and jQuery
+	if(nicEditors.findEditor('real_body').getContent().unescapeHtmlEntities() != $('#page_body').val()) {
+		//return confirm('저장되지 않은 내용이 있습니다.') 
+		return '저장되지 않은 내용이 있습니다.'
+	}	
+};
+$('.edit_page').submit(function(){
+	$('#page_body').val(nicEditors.findEditor('real_body').getContent());
+}); 
+$("ul.sf-menu").superfish(); 
+<% end %>
+
+<div id="nic_panel" style="width: 100%; margin: 0; padding: 0;"></div>
+<% form_for @page do |form| %>
+	<div id="title_area" class="clearfix">
+		<%= page_title @page.title, :h3 %>
+		<div class="float right">
+			<span id="indicator" class="hidden">Saving...</span>
+			<%= button_to_function '새 페이지' %>
+			<%= button_to_function '저장', "ajaxSave()" %>
+			<%= submit_tag '저장후 종료' %>
+		</div>
+	</div>
+	<div id="real_body" style="width: 100%;">
+		<%= w(@page.body) %>
+	</div>
+	<div class="hidden">
+		<%= text_area_tag 'page[body]', w(@page.body), :id => 'page_body' %>
+	</div>	
+	<%#= hidden_field_tag 'page[body]', w(@page.body), :id => 'page_body' %>
+<% end %>
+
+<div id="summary_area" class="right clearfix">
+	<div class="float left">
+		<%#= link_to APP_CONFIG[:home_title], root_path unless @page.title == APP_CONFIG[:home_title] %>
+	</div>
+	<div id="version">
+		<%= link_to "버전: #{@page.versions.current.number}, #{human_time(@page.created_at)}" %>
+	</div>	
+</div>
+
+
+<% content_for :west_area do %>
+	<%= render :partial => 'recent_pages' %>
+<% end %>
+
+<% content_for :east_area do %>
+	<h4>연관 페이지</h4>
+	<%= empty_msg_for @related_pages, '이 페이지를 링크한 페이지가 없습니다.' %>
+	<% unless @related_pages.empty? %>
+	<ul>
+		<% @related_pages.each do |page| %>
+			<li>
+				<%= link_to page.title, page_path(page) %>
+				<span class="excerpt"><%= truncate(strip_tags_and_wiki(page.body), 30) %></span>
+				<span class="atby">
+					at <%= human_time(page.updated_at) %>
+					by <%= link_to page.user %>
+				</span>	
+			</li>
+		<% end %>
+	</ul>	
+	<% end %>
+<% end %>
